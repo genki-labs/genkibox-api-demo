@@ -1,14 +1,14 @@
-import { FC, forwardRef, memo, ReactNode, useEffect, useRef, useState } from 'react'
+import { FC, forwardRef, ReactNode, useEffect, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { Button, CloseIcon, IconButton, TrophyGoldIcon, Heading } from '@pancakeswap/uikit'
 import { CSSTransition } from 'react-transition-group'
 
 import Modal from "styled-react-modal";
 import Carousel, { ReactElasticCarouselProps } from "react-elastic-carousel";
-import useAuth from 'hooks/useAuth'
 import ConnectWalletButton from 'components/ConnectWalletButton';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
-const CustomCarousel = forwardRef<any, ReactElasticCarouselProps & { children: ReactNode[], style: {} }>((props, ref) => <Carousel ref={ref} {...props} />);
+
+const CustomCarousel = forwardRef<any, ReactElasticCarouselProps & { children: ReactNode[], style: object }>((props, ref) => <Carousel ref={ref} {...props} />);
 
 /**
  * @see https://github.com/animate-css/animate.css/tree/main/source
@@ -200,8 +200,8 @@ const PopupItem: FC<PopupItemProps> = ({
         <Description>{quest.description}</Description>
       </Title>
       <ButtonWrapper>
-        <Button as={"a"} style={{ color:"#ffffff"  }} target="_blank" href={quest.link}>
-          Let's start
+        <Button as="a" style={{ color:"#ffffff"  }} target="_blank" href={quest.link}>
+          Let&apos;s start
         </Button>
         {account && currentQuestState ? (
           <Button style={{ color:"#ffffff", backgroundColor: "#a564d4"  }} onClick={() => verifyHandler(quest.questId)}>
@@ -264,7 +264,7 @@ const StepsPopup: React.FC<React.PropsWithChildren> = () => {
     }
     fetch(url , {
       method: "POST",
-      headers: headers,
+      headers,
       body: JSON.stringify(body),
     })
     .then((res) => {
@@ -295,7 +295,7 @@ const StepsPopup: React.FC<React.PropsWithChildren> = () => {
     };
     fetch(url , {
       method: "GET",
-      headers: headers,
+      headers,
     })
     .then((res) => {
       return res.json()
@@ -305,7 +305,7 @@ const StepsPopup: React.FC<React.PropsWithChildren> = () => {
       
       const stateOrganis = Object.entries(data.quests)
       .map(([questId, state]) => {
-        return {id: questId, state: state}
+        return {id: questId, state}
       });
       setQuestsState(stateOrganis)
     })

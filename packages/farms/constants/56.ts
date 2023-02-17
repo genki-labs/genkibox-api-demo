@@ -51,6 +51,24 @@ const farms: SerializedFarmConfig[] = [
   },
   //    * V3 by order of release (some may be out of PID order due to multiplier boost)
   {
+    pid: 147,
+    lpSymbol: 'axlUSDC-USDT LP',
+    lpAddress: '0x1c7e5a3A72b6D94DE5Ec20812E3e68713978a584',
+    token: bscTokens.axlusdc,
+    quoteToken: bscTokens.usdt,
+    stableSwapAddress: '0x6D8fba276ec6F1EDa2344DA48565AdbCA7e4FFa5',
+    infoStableSwapAddress: '0x150c8AbEB487137acCC541925408e73b92F39A50',
+    stableLpFee: 0.0002,
+    stableLpFeeRateOfTotalFee: 0.5,
+  },
+  {
+    pid: 146,
+    lpSymbol: 'SDAO-BNB',
+    lpAddress: '0x43b95976cF0929478bC13332C9cd2D63Bf060976',
+    token: bscTokens.sdao,
+    quoteToken: bscTokens.wbnb,
+  },
+  {
     pid: 144,
     lpSymbol: 'CHAMP-BUSD LP',
     lpAddress: '0x1D0F31Bf6171EdFEED3d202104ed69B04C936B02',

@@ -24,7 +24,7 @@ const ChefsChoice = () => {
 
   return (
     <StyledChefsChoiceContainer justifyContent="center">
-      <ArticleView title={t('Chef’s choice')} subTitle={t('Read about our latest announcements and more')}>
+      <ArticleView title={t('Chef’s choice')} subTitle={t('Recommended Readings by Chef’s')}>
         <Swiper
           loop
           resizeObserver
@@ -55,6 +55,7 @@ const ChefsChoice = () => {
             <SwiperSlide key={article.id}>
               <NextLink passHref href={`/articles/${article?.slug}`}>
                 <BlogCard
+                  imgAlt={article.imgAlt}
                   margin="auto"
                   padding={['0', '0', '18.5px']}
                   imgHeight={['200px']}

@@ -42,12 +42,6 @@ const UserBannerWrapper = styled(Container)`
   }
 `
 
-const Wraper = styled.div`
-  background-color: rgba(0, 0, 0, 1);
-  width: 100w;
-  height: 100h;
-`
-
 const Home: React.FC<React.PropsWithChildren> = () => {
   const { theme } = useTheme()
   const { address: account } = useAccount()
@@ -87,7 +81,6 @@ const Home: React.FC<React.PropsWithChildren> = () => {
           }
         `}
       </style>
-      {/* <Wraper>111</Wraper> */}
       <StyledHeroSection
         innerProps={{ style: { margin: '0', width: '100%' } }}
         containerProps={{

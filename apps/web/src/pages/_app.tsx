@@ -29,8 +29,6 @@ import { SentryErrorBoundary } from '../components/ErrorBoundary'
 import Menu from '../components/Menu'
 import Providers from '../Providers'
 import GlobalStyle from '../style/Global'
-import { ModalProvider, BaseModalBackground } from 'styled-react-modal'
-import StepsPopup from 'views/GenkiDemo/StepsPopup'
 
 const EasterEgg = dynamic(() => import('components/EasterEgg'), { ssr: false })
 
@@ -153,15 +151,11 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   return (
     <ProductionErrorBoundary>
-      <ModalProvider backgroundComponent={BaseModalBackground}>
-        <ShowMenu>
-          <Layout>
-            <StepsPopup />
-            <Component {...pageProps} />
-          </Layout>
-        </ShowMenu>
-      </ModalProvider>
-      
+      <ShowMenu>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ShowMenu>
       <EasterEgg iterations={2} />
       <ToastListener />
       <FixedSubgraphHealthIndicator />

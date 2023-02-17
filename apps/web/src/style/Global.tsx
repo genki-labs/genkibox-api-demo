@@ -18,15 +18,6 @@ const GlobalStyle = createGlobalStyle`
       max-width: 100%;
     }
   }
-  .rec.rec-dot {
-    background: #c9afdb;
-    border: none;
-    border-radius: 100%;
-    box-shadow: none;
-  }
-  .rec.rec-dot_active {
-    background: #a564d4;
-  }
 `
 
 export default GlobalStyle
