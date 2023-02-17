@@ -316,7 +316,8 @@ const StepsPopup: React.FC<React.PropsWithChildren> = () => {
 
   useEffect(() => {
     getUserStatus();
-  }, [])
+  }, [account]);
+
   return (
     <CSSTransition in={isOpen} unmountOnExit timeout={1000} classNames="popup">
       <Wrapper
