@@ -1,27 +1,60 @@
-# 🥞 Pancake Frontend
+# GenkiBox API Demo
+
+<style>
+link{
+  display: flex;
+  align-content: center;
+}
+text{
+  font-size: 40px
+}
+</style>
 
 <p align="center">
-  <a href="https://pancakeswap.finance">
-      <img src="https://pancakeswap.finance/logo.png" height="128">
+  <a href="https://api-docs.genki.io/">
+      <img src="https://api-docs.genki.io/img/logo.svg" height="128">
   </a>
-</p>
+</link>
 
-This project contains the main features of the pancake application.
+This project was a example showed how to use Genki API in your application.
+- [Demo](https://genkibox-api-demo-web.vercel.app/)
 
-If you want to contribute, please refer to the [contributing guidelines](./CONTRIBUTING.md) of this project.
+***
+## Hoe to use Genki API?
+In this case, we will build a popup quest in homepage.
 
-## Documentation
+Before starting, there are 2 very important steps to prepare.
 
-- [Info](doc/Info.md)
-- [Cypress tests](doc/Cypress.md)
+First one, please **create an organization** in [GenkiBox Portal](https://beta-box.genki.io/portal). Skip this step if you've already created one.
+
+Second one, please make sure you already have the API key. If you don't have yet,please go to [apply one](https://api-docs.genki.io/getting-started/get-your-api-key) now!
+
+
+- **Step1: Create a campaign and quests in GenkiBox.**
+  - You will need the campaign Id and quest Id for call API, and you can easily copy id through the copy buttom beside campaign name or quests name.
+  - I create two quests is "Swap Token" and "Add Liquidity".
+
+![img](./assets/copyID.png) 
+
+- **Step2: Choose API as you needed.** 
+  - You can find out 6 API endpoints in [Genki API](https://api-docs.genki.io/api). 
+  - In this case we will use `Verify Action` and `Get User Status`.
+
+![img](./assets/genkiAPI.png)
+
+- **Step3: Use Genki API in application.**
+  - When user click `Verify` buttom, will trigger `Verify Action` and the `Get User Status` to display is done or not complete quest.
+  - The source code in `apps/web/src/views/GenkiDemo/StepsProps`.
+[Demo Screen Recording]()
+
+***
+
+## How to start this Demo
 
 > Install dependencies using **yarn**
 
 ## `apps/web`
 <details>
-<summary>
-How to start
-</summary>
 
 ```sh
 yarn
@@ -40,43 +73,4 @@ yarn build
 yarn start
 ```
 </details>
-
-## `apps/aptos`
-<details>
-<summary>
-How to start
-</summary>
-
-```sh
-yarn dev:aptos
-```
-```sh
-yarn turbo run build --filter=aptos-web
-```
-</details>
-
-## `apps/blog`
-<details>
-<summary>
-How to start
-</summary>
-
-```sh
-yarn dev:blog
-```
-```sh
-yarn turbo run build --filter=blog
-```
-</details>
-
-
-## Packages
-
-| Package                                                       | Description                                                                                                            |
-|---------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
-| [sdk](/packages/swap-sdk)                                     | An SDK for building applications on top of Pancakeswap                                                                 |
-| [aptos-swap-sdk](/packages/aptos-swap-sdk)                    | Aptos version of Swap SDK                                                                                              |
-| [swap-sdk-core](/packages/swap-sdk-core)                      | Swap SDK Shared code                                                                                                   |
-| [wagmi](/packages/wagmi)                                      | Extension for [wagmi](https://github.com/wagmi-dev/wagmi), including bsc chain and binance wallet connector            |
-| [awgmi](/packages/awgmi)                                      | connect to Aptos with similar wagmi React hooks.                                                                       |
 
