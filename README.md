@@ -45,7 +45,7 @@ Second one, please make sure you already have the API key. If you don't have yet
 - **Step3: Use Genki API in application.**
   - When user click `Verify` buttom, will trigger `Verify Action` and the `Get User Status` to display is done or not complete quest.
   - The source code in `apps/web/src/views/GenkiDemo/StepsProps`.
-[Demo Screen Recording]()
+  - [Demo Screen Recording](https://drive.google.com/file/d/1sbWaMecuomvmkEsD_47_vmyu4UflRabC/view)
 
 ***
 
