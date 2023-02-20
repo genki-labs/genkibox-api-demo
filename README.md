@@ -36,15 +36,7 @@ Second one, please make sure you already have the API key. If you don't have yet
   - When user click `Verify` buttom, will trigger `Verify Action` and the `Get User Status` to display is done or not complete quest.
   - The source code in `apps/web/src/views/GenkiDemo/StepsProps`.
 
-<!DOCTYPE html>
-<html>
-<body>
-  
-  <iframe src="https://drive.google.com/file/d/1sbWaMecuomvmkEsD_47_vmyu4UflRabC/preview" width="640" height="480"></iframe>
-
-
-</body>
-</html>
+[![GenkiBox API Demo](https://res.cloudinary.com/marcomontalbano/image/upload/v1676906178/video_to_markdown/images/google-drive--1sbWaMecuomvmkEsD_47_vmyu4UflRabC-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://drive.google.com/file/d/1sbWaMecuomvmkEsD_47_vmyu4UflRabC/preview "GenkiBox API Demo")
 
 ***
 
