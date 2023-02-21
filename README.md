@@ -39,7 +39,7 @@ The campaign quest system is based on GenkiBox, so we're going to start from get
   - Skip this step if you already have one.
 
 - **Step 2: Apply for an API key**
-  - Please go to [apply one](https://api-docs.genki.io/getting-started/get-your-api-key) and get yourself an API key.
+  - Please [apply one](https://api-docs.genki.io/getting-started/get-your-api-key) and get yourself an API key.
   - Skip this step if you already have one.
 
 - **Step 3: Create a campaign with desired quests in GenkiBox**
