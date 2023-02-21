@@ -17,14 +17,9 @@ Here is a video for the demo.
 
 GenkiBox APIs are a set of RESTful APIs that connect to GenkiBox data, which come with the following features.
 
-### Easy to Use
-GenkiBox APIs were designed from the ground up to be easily installed and used to get your campaign data and user data quickly.
-
-### Focus on What Matters
-GenkiBox APIs let you focus on your marketing campaigns, and we'll do the chores.
-
-### Web 3.0 Support
-GenkiBox APIs empower you to verify actions on blockchain and bring a new world of doing marketing campaigns.
+- **Easy to Use** - GenkiBox APIs were designed from the ground up to be easily installed and used to get your campaign data and user data quickly.
+- **Focus on What Matters** - GenkiBox APIs let you focus on your marketing campaigns, and we'll do the chores.
+- **Web 3.0 Support** - GenkiBox APIs empower you to verify actions on blockchain and bring a new world of doing marketing campaigns.
 
 ## How to use GenkiBox API?
 In this example, we built a user onboarding popup in PancakeSwap.
