@@ -16,7 +16,7 @@ import {
 import { Button } from "../Button";
 import CakePrice from "../CakePrice/CakePrice";
 import LangSelector from "../LangSelector/LangSelector";
-import { ArrowForwardIcon, LogoWithTextIcon } from "../Svg";
+import { ArrowForwardIcon, LogoWithTextIcon, GenkiLogo } from "../Svg";
 import { ThemeSwitcher } from "../ThemeSwitcher";
 import { FooterProps } from "./types";
 import { SkeletonV2 } from "../Skeleton";
@@ -76,8 +76,9 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
               ))}
             </StyledList>
           ))}
-          <Box display={["none", null, "block"]}>
+          <Box display={["none", null, "flex"]} style={{flexDirection: "column", gap: "16px 0px"}}>
             <LogoWithTextIcon width="160px" />
+            <GenkiLogo />
           </Box>
         </Flex>
         <StyledSocialLinks order={[2]} pb={["42px", null, "32px"]} mb={["0", null, "32px"]} />
