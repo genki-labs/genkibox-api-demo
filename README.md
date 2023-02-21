@@ -67,7 +67,7 @@ The campaign quest system is based on GenkiBox, so we're going to start from get
 
 > Install dependencies using **yarn**
 
-## `apps/web`
+### `apps/web`
 <details>
 
 ```sh
