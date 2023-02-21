@@ -1,14 +1,14 @@
-import { FC, forwardRef, memo, ReactNode, useEffect, useRef, useState } from 'react'
+import { FC, forwardRef, ReactNode, useEffect, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { Button, CloseIcon, IconButton, TrophyGoldIcon, Heading } from '@pancakeswap/uikit'
 import { CSSTransition } from 'react-transition-group'
 
 import Modal from "styled-react-modal";
 import Carousel, { ReactElasticCarouselProps } from "react-elastic-carousel";
-import useAuth from 'hooks/useAuth'
 import ConnectWalletButton from 'components/ConnectWalletButton';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
-const CustomCarousel = forwardRef<any, ReactElasticCarouselProps & { children: ReactNode[], style: {} }>((props, ref) => <Carousel ref={ref} {...props} />);
+
+const CustomCarousel = forwardRef<any, ReactElasticCarouselProps & { children: ReactNode[], style: object }>((props, ref) => <Carousel ref={ref} {...props} />);
 
 /**
  * @see https://github.com/animate-css/animate.css/tree/main/source
@@ -108,6 +108,8 @@ const ButtonWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin-top: 30px;
+  margin-bottom: 16px;
 `
 
 const Popup = styled.div`
@@ -116,7 +118,7 @@ const Popup = styled.div`
   align-items: end;
   color: #ffffff;
   display: flex;
-  gap: 40px 0px;
+  gap: 10px 0px;
   flex-direction: column;
   flex: 1 0 100%;
   height: 100%;
@@ -171,19 +173,24 @@ const Quests = [
 type PopupItemProps = {
   quest: Quest;
   verifyHandler: (questId: string) => void;
-  toNext: () => void;
   questsState: QuestState[];
   account: string,
+  isVerify: boolean,
 }
 
-const PopupItem: FC<PopupItemProps> = ({quest, verifyHandler, account, questsState, toNext}) => {
+const PopupItem: FC<PopupItemProps> = ({
+  quest,
+  verifyHandler,
+  account,
+  questsState,
+  isVerify,
+}) => {
   const [currentQuestState, setCurrentQuestState] = useState();
   useEffect(() => {
     if (questsState) {
       const currentQuest = questsState.filter((item) => item.id === quest.questId)
       setCurrentQuestState(currentQuest[0].state)
     }
-   
   }, [questsState])
   return (
     <Popup>
@@ -193,15 +200,18 @@ const PopupItem: FC<PopupItemProps> = ({quest, verifyHandler, account, questsSta
         <Description>{quest.description}</Description>
       </Title>
       <ButtonWrapper>
-        <Button as={"a"} style={{ color:"#ffffff"  }} target="_blank" href={quest.link}>
-          Let's start
+        <Button as="a" style={{ color:"#ffffff"  }} target="_blank" href={quest.link}>
+          Let&apos;s start
         </Button>
         {account && currentQuestState ? (
           <Button style={{ color:"#ffffff", backgroundColor: "#a564d4"  }} onClick={() => verifyHandler(quest.questId)}>
             Done
           </Button>
         ): account && !currentQuestState ? (
-          <Button style={{ color:"#ffffff"  }} onClick={() => verifyHandler(quest.questId)}>
+          <Button
+            isLoading={isVerify}
+            style={{ color:"#ffffff"  }} 
+            onClick={() => verifyHandler(quest.questId)}>
             Verify
           </Button>
         ): (
@@ -221,16 +231,21 @@ const NextButton = styled(Button)`
   bottom: 20px;
   right: 40px;
 `
+const Message = styled.div`
+  color: #d82424;
+  text-align: end;
+  position: absolute;
+  bottom: 40px;
+  right: 50px;
+`
 
 const StepsPopup: React.FC<React.PropsWithChildren> = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [opacity, setOpacity] = useState(1);
-  const APIkey = "507503A3770F416EAA308CC58E0AF3B5";
   const [questsState, setQuestsState] = useState<QuestState[]>();
+  const [isVerify, setIsVerify] = useState(false);
+  const [ message, setMessage ] = useState("");
   const { account } = useActiveWeb3React();
-  const toNext = () => {
-    console.log("Next");
-  }
 
   const toggleModal = (e) => {
     setOpacity(0);
@@ -238,21 +253,32 @@ const StepsPopup: React.FC<React.PropsWithChildren> = () => {
   };
 
   const verifyHandler = ( questId: string ) => {
+    setIsVerify(true);
     const url = `https://beta-api.genki.io/v1/quests/${questId}/verify`
     const headers = {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${APIkey}`,
+      "Authorization": `Bearer ${process.env.NEXT_PUBLIC_GENKIAPI_KEY}`,
     };
     const body = {
       "user_address": account
     }
     fetch(url , {
       method: "POST",
-      headers: headers,
+      headers,
       body: JSON.stringify(body),
     })
     .then((res) => {
-      console.log("success",res);
+      return res.json();
+    })
+    .then((data) => {
+      console.log("verify",data);
+      if (!data.verify_result) {
+        const questTitle = Quests.filter((quest) => quest.questId === questId)[0].title
+        setMessage(`You didn't complete ${questTitle} quest`)
+        setTimeout(() => {
+          setMessage("")
+        },2000)
+      }
       getUserStatus();
     })
     .catch((err) => {
@@ -261,14 +287,15 @@ const StepsPopup: React.FC<React.PropsWithChildren> = () => {
   }
 
   const getUserStatus = () => {
+    setIsVerify(false);
     const url = `https://beta-api.genki.io/v1/campaigns/HG6GPK/users/${account}`
     const headers = {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${APIkey}`,
+      "Authorization": `Bearer ${process.env.NEXT_PUBLIC_GENKIAPI_KEY}`,
     };
     fetch(url , {
       method: "GET",
-      headers: headers,
+      headers,
     })
     .then((res) => {
       return res.json()
@@ -278,9 +305,8 @@ const StepsPopup: React.FC<React.PropsWithChildren> = () => {
       
       const stateOrganis = Object.entries(data.quests)
       .map(([questId, state]) => {
-        return {id: questId, state: state}
+        return {id: questId, state}
       });
-      
       setQuestsState(stateOrganis)
     })
     .catch((err) => {
@@ -290,7 +316,8 @@ const StepsPopup: React.FC<React.PropsWithChildren> = () => {
 
   useEffect(() => {
     getUserStatus();
-  }, [])
+  }, [account]);
+
   return (
     <CSSTransition in={isOpen} unmountOnExit timeout={1000} classNames="popup">
       <Wrapper
@@ -303,20 +330,24 @@ const StepsPopup: React.FC<React.PropsWithChildren> = () => {
           <CloseIcon color="primary" width="24px" />
         </PopupButton>
         
-        <CustomCarousel style={{width: "400px"}} isRTL={false} itemsToShow={1} showArrows={false}>
+        <CustomCarousel
+        style={{width: "400px"}}
+        isRTL={false} itemsToShow={1}
+        showArrows={false}
+        >
         {
           Quests.map((quest) => (
             <PopupItem 
               quest={quest}
               verifyHandler={verifyHandler}
-              toNext={toNext}
               questsState={questsState}
               account={account}
+              isVerify={isVerify}
               />
           ))
         }
         </CustomCarousel>
-        {/* <NextButton>Next -{'>'}</NextButton> */}
+      <Message>{message}</Message>
       </Wrapper>
     </CSSTransition>
   )

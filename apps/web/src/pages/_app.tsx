@@ -23,14 +23,14 @@ import { PageMeta } from 'components/Layout/Page'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, useStore } from 'state'
 import { usePollBlockNumber } from 'state/block/hooks'
+import { ModalProvider, BaseModalBackground } from 'styled-react-modal'
+import StepsPopup from 'views/GenkiDemo/StepsPopup'
 import { Blocklist, Updaters } from '..'
 import { SEO } from '../../next-seo.config'
 import { SentryErrorBoundary } from '../components/ErrorBoundary'
 import Menu from '../components/Menu'
 import Providers from '../Providers'
 import GlobalStyle from '../style/Global'
-import { ModalProvider, BaseModalBackground } from 'styled-react-modal'
-import StepsPopup from 'views/GenkiDemo/StepsPopup'
 
 const EasterEgg = dynamic(() => import('components/EasterEgg'), { ssr: false })
 
@@ -154,14 +154,13 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   return (
     <ProductionErrorBoundary>
       <ModalProvider backgroundComponent={BaseModalBackground}>
-        <ShowMenu>
-          <Layout>
-            <StepsPopup />
-            <Component {...pageProps} />
-          </Layout>
-        </ShowMenu>
+      <ShowMenu>
+        <Layout>
+          <StepsPopup />
+          <Component {...pageProps} />
+        </Layout>
+      </ShowMenu>
       </ModalProvider>
-      
       <EasterEgg iterations={2} />
       <ToastListener />
       <FixedSubgraphHealthIndicator />

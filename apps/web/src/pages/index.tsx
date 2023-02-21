@@ -2,33 +2,14 @@ import { formatEther } from '@ethersproject/units'
 import { getUnixTime, sub } from 'date-fns'
 import { gql } from 'graphql-request'
 import { GetStaticProps } from 'next'
-import { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import { SWRConfig } from 'swr'
 import { getCakeVaultAddress } from 'utils/addressHelpers'
 import { getCakeContract } from 'utils/contractHelpers'
 import { getBlocksFromTimestamps } from 'utils/getBlocksFromTimestamps'
 import { bitQueryServerClient, infoServerClient } from 'utils/graphql'
-import StepsPopup from 'views/GenkiDemo/StepsPopup'
 import Home from '../views/Home'
 
-// const Wraper = styled.div`
-//   background-color: rgba(0, 0, 0, 0.4);
-//   /* opacity: 0.2; */
-//   width: 100%;
-//   height: 100%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   z-index: 100;
-//   /* position: absolute; */
-// `
-
 const IndexPage = ({ totalTx30Days, addressCount30Days, tvl }) => {
-  const [isOpen, setIsOpen] = useState(true);
-  // useEffect(() => {
-  //   alert("BOMBAYA")
-  // })
   return (
     <SWRConfig
       value={{
@@ -39,9 +20,6 @@ const IndexPage = ({ totalTx30Days, addressCount30Days, tvl }) => {
         },
       }}
     >
-      {/* <StepsPopup /> */}
-      {/* {isOpen ? 
-      <StepsPopup /> : <></>} */}
       <Home />
     </SWRConfig>
   )
